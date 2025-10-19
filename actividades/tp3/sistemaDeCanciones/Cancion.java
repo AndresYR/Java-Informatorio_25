@@ -1,4 +1,4 @@
-package actividades.tp3;
+package actividades.tp3.sistemaDeCanciones;
 
 public class Cancion {
     private String titulo;
