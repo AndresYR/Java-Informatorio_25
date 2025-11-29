@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/habitos")
@@ -25,6 +26,17 @@ public class HabitoController {
         List<HabitoDto> habitos = habitoService.obtenerTodos();
 
         return habitos;
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<HabitoDto> getHabitoById(@PathVariable(name = "id") Long id) {
+        Optional<HabitoDto> habito = habitoService.obtenerPorId(id);
+
+        if (habito.isPresent()) {
+            return ResponseEntity.ok(habito.get());
+        }
+
+        return ResponseEntity.notFound().build();
     }
 
     @PostMapping

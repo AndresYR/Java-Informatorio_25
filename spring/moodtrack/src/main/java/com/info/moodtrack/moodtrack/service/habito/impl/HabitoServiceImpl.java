@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -27,9 +28,16 @@ public class HabitoServiceImpl implements HabitoService {
     }
 
     @Override
+    public Optional<HabitoDto> obtenerPorId(Long id) {
+        return habitoRepository.findById(id)
+                .map(HabitoMapper::toDto);
+    }
+
+    @Override
     public HabitoDto create(HabitoCreateDto createDto) {
         Habito habito = HabitoMapper.toEntity(createDto);
         Habito saved = habitoRepository.save(habito);
         return HabitoMapper.toDto(saved);
     }
+
 }
