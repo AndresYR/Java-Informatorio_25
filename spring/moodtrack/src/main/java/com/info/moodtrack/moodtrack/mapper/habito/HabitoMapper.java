@@ -1,5 +1,6 @@
 package com.info.moodtrack.moodtrack.mapper.habito;
 
+import com.info.moodtrack.moodtrack.dto.habito.HabitoCreateDto;
 import com.info.moodtrack.moodtrack.dto.habito.HabitoDto;
 import com.info.moodtrack.moodtrack.model.Habito;
 
@@ -26,6 +27,18 @@ public class HabitoMapper {
         return habitos.stream()
                 .map(HabitoMapper::toDto)
                 .toList();
+    }
+
+    public static Habito toEntity(HabitoCreateDto createDto) {
+
+        if (createDto == null ) return null;
+
+        Habito habito = new Habito();
+        habito.setDescripcion(createDto.getDescripcion());
+        habito.setNivelDeImportanciaEnum(createDto.getNivelDeImportanciaEnum());
+
+        return habito;
+
     }
 
 }

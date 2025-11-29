@@ -12,9 +12,11 @@ public class Habito {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, length = 250)
     private String descripcion;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private NivelDeImportanciaEnum nivelDeImportanciaEnum;
 
     @ManyToMany(mappedBy = "habitos")
