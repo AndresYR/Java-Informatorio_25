@@ -18,7 +18,7 @@ public class UsuarioCreateDto {
     @NotBlank(message = "El nombre del usuario no puede ser vacio.")
     private String nombre;
 
-    @Email(message = "El mail no puede ser vacio.")
+    @NotBlank(message = "El mail no puede ser vacio.")
     private String email;
 
     @Valid

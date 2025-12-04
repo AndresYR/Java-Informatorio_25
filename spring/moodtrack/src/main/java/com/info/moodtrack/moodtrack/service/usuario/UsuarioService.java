@@ -10,7 +10,7 @@ import java.util.UUID;
 
 public interface UsuarioService {
 
-    List<UsuarioDto> obtenerTodos();
+    List<UsuarioDto> obtenerTodos(String nombre, String email, String colorFavorito);
 
     UsuarioDto crearUsuario(UsuarioCreateDto usuarioCreateDto);
 
