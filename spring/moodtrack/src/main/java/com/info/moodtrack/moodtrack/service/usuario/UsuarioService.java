@@ -2,6 +2,7 @@ package com.info.moodtrack.moodtrack.service.usuario;
 
 import com.info.moodtrack.moodtrack.dto.usuario.UsuarioCreateDto;
 import com.info.moodtrack.moodtrack.dto.usuario.UsuarioDto;
+import com.info.moodtrack.moodtrack.dto.usuario.UsuarioResumenDto;
 import com.info.moodtrack.moodtrack.model.Usuario;
 
 import java.util.List;
@@ -19,5 +20,7 @@ public interface UsuarioService {
     UsuarioDto updateUsuario(UUID id, UsuarioCreateDto usuarioCreateDto);
 
     boolean eliminarUsuari0(UUID id);
+
+    UsuarioResumenDto obtenerResumen(Usuario usuario);
 
 }

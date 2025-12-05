@@ -2,8 +2,10 @@ package com.info.moodtrack.moodtrack.service.usuario.impl;
 
 import com.info.moodtrack.moodtrack.dto.usuario.UsuarioCreateDto;
 import com.info.moodtrack.moodtrack.dto.usuario.UsuarioDto;
+import com.info.moodtrack.moodtrack.dto.usuario.UsuarioResumenDto;
 import com.info.moodtrack.moodtrack.mapper.perfil.PerfilMapper;
 import com.info.moodtrack.moodtrack.mapper.usuario.UsuarioMapper;
+import com.info.moodtrack.moodtrack.mapper.usuario.UsuarioResumenMapper;
 import com.info.moodtrack.moodtrack.model.PerfilUsuario;
 import com.info.moodtrack.moodtrack.model.Usuario;
 import com.info.moodtrack.moodtrack.repository.usuario.UsuarioRepository;
@@ -130,6 +132,13 @@ public class UsuarioServiceImpl implements UsuarioService {
         }
 
         return false;
+    }
+
+    @Override
+    public UsuarioResumenDto obtenerResumen(Usuario usuario) {
+
+        return UsuarioResumenMapper.resumenDto(usuario);
+
     }
 
 }
