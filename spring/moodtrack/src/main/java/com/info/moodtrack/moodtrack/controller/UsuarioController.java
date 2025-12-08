@@ -2,7 +2,6 @@ package com.info.moodtrack.moodtrack.controller;
 
 import com.info.moodtrack.moodtrack.dto.usuario.UsuarioCreateDto;
 import com.info.moodtrack.moodtrack.dto.usuario.UsuarioDto;
-import com.info.moodtrack.moodtrack.model.Usuario;
 import com.info.moodtrack.moodtrack.service.usuario.UsuarioService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -44,7 +43,7 @@ public class UsuarioController {
     public ResponseEntity<UsuarioDto> getUsuarioById(
             @PathVariable(name = "id") UUID id
             ) {
-        Optional<UsuarioDto> usuario = usuarioService.obtenerPorId(id);
+        Optional<UsuarioDto> usuario = usuarioService.obtenerDtoPorId(id);
 
         if (usuario.isPresent()) {
             return ResponseEntity.ok(usuario.get());

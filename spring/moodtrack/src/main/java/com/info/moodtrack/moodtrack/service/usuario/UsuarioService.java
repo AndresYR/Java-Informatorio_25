@@ -15,7 +15,9 @@ public interface UsuarioService {
 
     UsuarioDto crearUsuario(UsuarioCreateDto usuarioCreateDto);
 
-    Optional<UsuarioDto> obtenerPorId(UUID id);
+    Optional<Usuario> obtenerPorId(UUID id);
+
+    Optional<UsuarioDto> obtenerDtoPorId(UUID id);
 
     UsuarioDto updateUsuario(UUID id, UsuarioCreateDto usuarioCreateDto);
 
