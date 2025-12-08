@@ -1,9 +1,6 @@
 package com.info.moodtrack.moodtrack.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class PerfilUsuario {
@@ -12,10 +9,13 @@ public class PerfilUsuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, length = 200)
     private String bio;
 
+    @Column(nullable = false, length = 50)
     private String colorFavorito;
 
+    @Column(nullable = false, length = 200)
     private String fraseDelDia;
 
     public PerfilUsuario() {
