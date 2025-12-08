@@ -8,17 +8,16 @@ import com.info.moodtrack.moodtrack.mapper.usuario.UsuarioMapper;
 import com.info.moodtrack.moodtrack.mapper.usuario.UsuarioResumenMapper;
 import com.info.moodtrack.moodtrack.model.PerfilUsuario;
 import com.info.moodtrack.moodtrack.model.Usuario;
+import com.info.moodtrack.moodtrack.repository.entradadiaria.EntradaDiariaRepository;
 import com.info.moodtrack.moodtrack.repository.usuario.UsuarioRepository;
 import com.info.moodtrack.moodtrack.repository.usuario.specification.UsuarioSpecifications;
 import com.info.moodtrack.moodtrack.service.usuario.UsuarioService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -28,10 +27,12 @@ import java.util.UUID;
 public class UsuarioServiceImpl implements UsuarioService {
 
     private UsuarioRepository usuarioRepository;
+    private final EntradaDiariaRepository entradaDiariaRepository;
 
     @Autowired
-    public UsuarioServiceImpl(UsuarioRepository usuarioRepository) {
+    public UsuarioServiceImpl(UsuarioRepository usuarioRepository, EntradaDiariaRepository entradaDiariaRepository) {
         this.usuarioRepository = usuarioRepository;
+        this.entradaDiariaRepository = entradaDiariaRepository;
     }
 
     @Override
@@ -143,7 +144,17 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public UsuarioResumenDto obtenerResumen(Usuario usuario) {
         log.info("Obteniendo resumen para usuario con id {}", usuario.getId());
-        return UsuarioResumenMapper.resumenDto(usuario);
+
+        int cantEntradasDiarias = entradaDiariaRepository.countByUsuarioId(usuario.getId());
+
+        Optional<LocalDate> fechaUltimaEntrada = entradaDiariaRepository.findUltimaFecha(usuario.getId());
+
+        log.info("Resumen obtenido para usuario con id {}", usuario.getId());
+        return UsuarioResumenMapper.resumenDto(
+                usuario,
+                cantEntradasDiarias,
+                fechaUltimaEntrada.orElse(null)
+        );
 
     }
 

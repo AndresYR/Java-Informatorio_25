@@ -9,8 +9,10 @@ import com.info.moodtrack.moodtrack.service.usuario.UsuarioService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.net.URI;
 import java.util.List;
@@ -60,14 +62,16 @@ public class UsuarioController {
     public ResponseEntity<UsuarioResumenDto> getResumen(
             @PathVariable(name = "id") UUID id
     ) {
-        Optional<Usuario> usuario = usuarioService.obtenerPorId(id);
+//        Optional<Usuario> usuario = usuarioService.obtenerPorId(id);
+        Usuario usuario = usuarioService.obtenerPorId(id)
+                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado"));
 
-        if (usuario.isPresent()) {
-            UsuarioResumenDto resumenDto = usuarioService.obtenerResumen(usuario.get());
+//        if (usuario.isPresent()) {
+            UsuarioResumenDto resumenDto = usuarioService.obtenerResumen(usuario);
             return ResponseEntity.ok(resumenDto);
-        }
+//        }
 
-        return ResponseEntity.notFound().build();
+//        return ResponseEntity.notFound().build();
     }
 
 
