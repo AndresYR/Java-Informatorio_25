@@ -142,7 +142,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public UsuarioResumenDto obtenerResumen(Usuario usuario) {
-
+        log.info("Obteniendo resumen para usuario con id {}", usuario.getId());
         return UsuarioResumenMapper.resumenDto(usuario);
 
     }
