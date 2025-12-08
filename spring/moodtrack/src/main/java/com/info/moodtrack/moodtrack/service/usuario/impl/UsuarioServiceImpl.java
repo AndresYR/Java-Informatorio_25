@@ -61,7 +61,12 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public Optional<UsuarioDto> obtenerPorId(UUID id) {
+    public Optional<Usuario> obtenerPorId(UUID id) {
+        return usuarioRepository.findById(id);
+    }
+
+    @Override
+    public Optional<UsuarioDto> obtenerDtoPorId(UUID id) {
         /*
         //Solucion funcional
         return usuarioRepository.findById(id) // Devuelve Optional<Usuario>
@@ -70,7 +75,8 @@ public class UsuarioServiceImpl implements UsuarioService {
                 .map(UsuarioMapper::toDto); // El resultado es Optional<UsuarioDto>
          */
 
-        Optional<Usuario> usuario = usuarioRepository.findById(id);
+        Optional<Usuario> usuario = this.obtenerPorId(id);
+
         if (usuario.isPresent()) {
             Usuario usuarioEntity = usuario.get();
             return Optional.of(UsuarioMapper.toDto(usuarioEntity));
@@ -85,7 +91,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     public UsuarioDto updateUsuario(UUID id, UsuarioCreateDto usuarioCreateDto) {
 
         // 1. Buscar el usuario por id
-        Optional<Usuario> usuario = usuarioRepository.findById(id);
+        Optional<Usuario> usuario = this.obtenerPorId(id);
 
         if (usuario.isPresent()) {
             Optional<Usuario> usuarioExist = usuarioRepository.findByEmail(usuarioCreateDto.getEmail());
