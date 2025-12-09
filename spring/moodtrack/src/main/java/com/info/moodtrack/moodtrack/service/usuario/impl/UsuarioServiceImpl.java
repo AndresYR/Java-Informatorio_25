@@ -15,7 +15,9 @@ import com.info.moodtrack.moodtrack.service.usuario.UsuarioService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -142,7 +144,10 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public UsuarioResumenDto obtenerResumen(Usuario usuario) {
+    public UsuarioResumenDto obtenerResumen(UUID id) {
+        Usuario usuario = this.obtenerPorId(id)
+                        .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado"));
+
         log.info("Obteniendo resumen para usuario con id {}", usuario.getId());
 
         int cantEntradasDiarias = entradaDiariaRepository.countByUsuarioId(usuario.getId());

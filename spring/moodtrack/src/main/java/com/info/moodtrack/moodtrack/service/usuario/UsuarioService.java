@@ -23,6 +23,6 @@ public interface UsuarioService {
 
     boolean eliminarUsuari0(UUID id);
 
-    UsuarioResumenDto obtenerResumen(Usuario usuario);
+    UsuarioResumenDto obtenerResumen(UUID id);
 
 }

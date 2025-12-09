@@ -62,16 +62,11 @@ public class UsuarioController {
     public ResponseEntity<UsuarioResumenDto> getResumen(
             @PathVariable(name = "id") UUID id
     ) {
-//        Optional<Usuario> usuario = usuarioService.obtenerPorId(id);
-        Usuario usuario = usuarioService.obtenerPorId(id)
-                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado"));
 
-//        if (usuario.isPresent()) {
-            UsuarioResumenDto resumenDto = usuarioService.obtenerResumen(usuario);
-            return ResponseEntity.ok(resumenDto);
-//        }
+        UsuarioResumenDto resumenDto = usuarioService.obtenerResumen(id);
 
-//        return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(resumenDto);
+
     }
 
 
